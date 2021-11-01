@@ -9,6 +9,7 @@ import lv.andris.rest.countries.web.controllers.CountryController_classes.Messag
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -32,17 +33,23 @@ public class CountryController {
 
     @GetMapping(path = "/getCountryInfoForApp", produces = MediaType.APPLICATION_JSON_VALUE)
     public Message getCountriesFromJsonAndSaveInDb() {
-       final ResponseEntity<Country[]> response = restTemplate.getForEntity(url, Country[].class);
-       List<Country> countries = Arrays.asList(response.getBody());
 
-        Message jsonSuccess = new Message("Country info has been saved/updated in local database and is ready for use");
-        Message jsonFail = new Message("Country info has not been saved");
+        List<Country> countries = null;
+        Message jsonStatus = new Message();
 
-       if (repository.saveAll(countries).isEmpty()) {
-           return jsonFail;
-       }else{
-           return jsonSuccess;
-       }
+        try {
+            final ResponseEntity<Country[]> response = restTemplate.getForEntity(url, Country[].class);
+            countries = Arrays.asList(response.getBody());
+            repository.saveAll(countries);
+
+            jsonStatus = new Message("Country info has been saved/updated in local database and is ready for use");
+
+        } catch (Exception e) {
+            jsonStatus = new Message("Country info has not been saved due to an error");
+        }
+
+       return jsonStatus;
+
     }
 
     @GetMapping("/listAllCountries")
