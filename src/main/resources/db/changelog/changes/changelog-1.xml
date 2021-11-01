@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet author="Andris" id="1">
+        <createTable tableName="countries">
+            <column name="currency_name" type="VARCHAR(300)" defaultValue="default">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency_symbol" type="VARCHAR(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="area" type="DECIMAL(19,2)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="population" type="INTEGER" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="official_name" type="VARCHAR(300)" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="population_density" type="DECIMAL(19,2)" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="countries"
+                       cascadeConstraints="true"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

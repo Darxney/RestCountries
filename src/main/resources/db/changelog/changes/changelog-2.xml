@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet author="Andris" id="2">
+        <createTable tableName="country_capital">
+            <column name="country_official_name" type="VARCHAR(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="capital" type="VARCHAR(300)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="country_capital"
+                       cascadeConstraints="true"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
