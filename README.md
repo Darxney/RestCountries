@@ -1,5 +1,5 @@
 # RestCountries
-Application was Developed on Java 14.0.2 using IntelliJ idea IDE and Mysql database. Usage:
+Application was Developed on Java 11 using IntelliJ idea IDE and Mysql database. Usage:
 
 IF you are using Mysql Open mysql workbench and execute this query: CREATE SCHEMA IF NOT EXISTS \`countriesdb`; the rest of the database setup will be completed by the application through liquibase
 
