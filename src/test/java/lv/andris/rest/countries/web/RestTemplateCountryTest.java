@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lv.andris.rest.countries.web.classesForRestTests.CountryArrayJsonMapper;
 import lv.andris.rest.countries.web.controllers.CountryController_classes.Message;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -19,6 +21,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RestTemplateCountryTest {
 
 
@@ -34,15 +37,14 @@ public class RestTemplateCountryTest {
     }
 
     @Test
-    public void getCountryInfoForAppShouldPass() {
+    public void A_getCountryInfoForAppShouldPass() {
         ResponseEntity<Message> response = restTemplate.getForEntity(resourceUrl + "getCountryInfoForApp" , Message.class);
 
-        //assertThat(response.getBody(), notNullValue());
         assertThat(response.getBody().getResponse(), is("Country info has been saved/updated in local database and is ready for use"));
     }
 
     @Test
-    public void whenSendListAllCountriesForRequestEntity_thenBodyCorrect() throws IOException {
+    public void B_whenSendListAllCountriesForRequestEntity_thenBodyCorrect() throws IOException {
         final RestTemplate template = new RestTemplate();
         final ResponseEntity<String> response = template.getForEntity(resourceUrl + "listAllCountries", String.class);
 
@@ -53,7 +55,7 @@ public class RestTemplateCountryTest {
     }
 
     @Test
-    public void whenGetListTopCountriesByArea_thenShouldReturnRussia() {
+    public void C_whenGetListTopCountriesByArea_thenShouldReturnRussia() {
         final RestTemplate template = new RestTemplate();
         final ResponseEntity<CountryArrayJsonMapper> response = template.getForEntity(resourceUrl + "listTopTenByArea", CountryArrayJsonMapper.class);
 
@@ -65,7 +67,7 @@ public class RestTemplateCountryTest {
     }
 
     @Test
-    public void whenGetListTopCountriesByPopulation_thenShouldReturnRussia() {
+    public void D_whenGetListTopCountriesByPopulation_thenShouldReturnRussia() {
         final RestTemplate template = new RestTemplate();
         final ResponseEntity<CountryArrayJsonMapper> response = template.getForEntity(resourceUrl + "listTopTenByPopulation", CountryArrayJsonMapper.class);
 
@@ -77,7 +79,7 @@ public class RestTemplateCountryTest {
     }
 
     @Test
-    public void whenGetListTopCountriesByPopulationDensity_thenShouldReturnMonaco() {
+    public void E_whenGetListTopCountriesByPopulationDensity_thenShouldReturnMonaco() {
         final RestTemplate template = new RestTemplate();
         final ResponseEntity<CountryArrayJsonMapper> response = template.getForEntity(resourceUrl + "listTopTenByPopulationDensity", CountryArrayJsonMapper.class);
 
